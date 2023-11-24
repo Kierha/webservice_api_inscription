@@ -1,6 +1,9 @@
 const amqp = require("amqplib");
 const { rabbitMQUrl, queueName } = require("../config/mqConfig");
 
+/**
+ * Client RabbitMQ pour l'envoi de messages.
+ */
 class RabbitMQClient {
   constructor() {
     /**

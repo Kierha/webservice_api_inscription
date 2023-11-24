@@ -2,15 +2,9 @@ const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/userController");
 
-/**
- * Routeur pour les opérations liées aux utilisateurs.
- * @param {object} db - L'objet de base de données.
- * @returns {object} - Le routeur Express configuré.
- */
-module.exports = (db) => {
-  const userController = new UserController(db);
+const userController = new UserController();
 
-  router.post("/signup", userController.signup);
+router.post("/signup", userController.signup);
+router.post("/validate-token", userController.verifyToken);
 
-  return router;
-};
+module.exports = router;
