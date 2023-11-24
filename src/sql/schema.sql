@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS users;
+
+USE users;
+
+CREATE TABLE usersdata (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    isVerified BOOLEAN DEFAULT FALSE,
+    verificationToken VARCHAR(255)
+);
