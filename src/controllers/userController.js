@@ -1,8 +1,11 @@
 const UserModel = require("../models/userModel");
+const RabbitMQClient = require("../messaging/rabbitMQClient");
 
 class UserController {
   constructor() {
     this.userModel = new UserModel();
+    this.rabbitMQClient = new RabbitMQClient();
+    this.rabbitMQClient.connect();
   }
 
   /**
@@ -14,6 +17,11 @@ class UserController {
     try {
       const { firstName, email } = req.body;
       await this.userModel.createUser(firstName, email);
+
+      // Envoi du message à RabbitMQ
+      const message = JSON.stringify({ firstName, email });
+      await this.rabbitMQClient.sendMessage(message);
+
       res.status(201).send("User created successfully");
     } catch (error) {
       console.error(error);
